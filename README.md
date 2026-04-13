@@ -185,3 +185,20 @@ Stateless applications in Kubernetes are easy to deploy, scale, and manage. By u
 * Use external storage for data
 * Enable autoscaling
 * Monitor application health
+
+
+
+1. IAM Integration (VERY IMPORTANT)
+
+Uses AWS Identity and Access Management
+
+What it does:
+
+Controls access to cluster
+Maps IAM users/roles to Kubernetes users
+
+Why special in EKS?
+
+Instead of Kubernetes RBAC alone → AWS IAM is used
+Secure + centralized access control
+
