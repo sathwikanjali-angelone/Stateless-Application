@@ -143,3 +143,89 @@ EKS supports advanced ingress management using the AWS Load Balancer Controller,
 Deploying stateless applications in Kubernetes becomes efficient and reliable when best practices are followed. These practices ensure high availability, scalability, and fault tolerance. When using Amazon EKS, additional AWS integrations further enhance security, networking, and operational capabilities, making it a powerful platform for modern cloud-native applications.
 
 ---
+
+
+## Deployment Configuration Options (Advanced)
+
+Kubernetes Deployment provides multiple configuration options beyond the default setup.
+
+### 1. Replica Configuration
+
+Replicas define how many instances of the application are running.
+
+- replicas: 1 → Not recommended (single point of failure)
+- replicas: 2 → Basic redundancy
+- replicas: 3 → Common best practice for high availability
+
+Why 3 replicas?
+- One pod can fail
+- One pod can be updated
+- One pod continues serving traffic
+
+### 2. Deployment Strategies
+
+Kubernetes supports different update strategies:
+
+#### RollingUpdate (Default)
+- Updates pods gradually
+- Ensures zero downtime
+
+Configuration:
+- maxSurge: Extra pods during update
+- maxUnavailable: Pods allowed to be down
+
+Example:
+maxSurge: 1
+maxUnavailable: 1
+
+#### Recreate
+- Deletes all old pods before creating new ones
+- Causes downtime
+- Used when app cannot run multiple versions
+
+---
+
+### 3. Auto Scaling (HPA)
+
+Instead of fixed replicas, Kubernetes can scale automatically.
+
+- Min replicas
+- Max replicas
+- CPU/Memory based scaling
+
+Benefit:
+- Handles traffic automatically
+- Saves resources
+
+---
+
+### 4. Pod Disruption Budget
+
+Ensures minimum pods are always running during maintenance.
+
+Example:
+minAvailable: 2
+
+---
+
+### 5. Affinity and Anti-Affinity
+
+Controls how pods are placed on nodes.
+
+- Ensures pods are distributed across nodes
+- Improves availability
+
+---
+
+### 6. Resource Configuration
+
+Defines CPU and memory usage.
+
+- requests → minimum required
+- limits → maximum allowed
+
+---
+
+## Summary
+
+Instead of using default configurations, it is important to customize deployments based on application needs. Proper use of replicas, update strategies, and scaling ensures high availability, reliability, and efficient resource usage.
